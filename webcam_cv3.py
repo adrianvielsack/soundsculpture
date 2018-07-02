@@ -3,14 +3,18 @@ import sys
 import logging as log
 import datetime as dt
 from time import sleep
+from MixerEngine import Mixer
 
 filter = [0] * 30
 cascPath = "haar_cascades/haarcascade_frontalface_default.xml"
 faceCascade = cv2.CascadeClassifier(cascPath)
 #log.basicConfig(filename='webcam.log',level=log.INFO)
 
+m = Mixer("../Sounds")
 video_capture = cv2.VideoCapture(0)
 anterior = 0
+
+
 
 while True:
     if not video_capture.isOpened():
@@ -36,8 +40,8 @@ while True:
 
     num_faces = len(faces)
     filter = filter[1:] + [num_faces]
-    filtered_faces = int(sum(filter) / len(filter))
-
+    filtered_faces = int(sum(filter) / (len(filter) + 0.5))
+    m.set_playing(filtered_faces + 1)
     print(str(filtered_faces))
 
     if anterior != len(faces):
