@@ -4,6 +4,7 @@ import logging as log
 import datetime as dt
 from time import sleep
 
+filter = [0] * 30
 cascPath = "haar_cascades/haarcascade_frontalface_default.xml"
 faceCascade = cv2.CascadeClassifier(cascPath)
 #log.basicConfig(filename='webcam.log',level=log.INFO)
@@ -32,6 +33,12 @@ while True:
     # Draw a rectangle around the faces
     for (x, y, w, h) in faces:
         cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
+
+    num_faces = len(faces)
+    filter = filter[1:] + [num_faces]
+    filtered_faces = int(sum(filter) / len(filter))
+
+    print(str(filtered_faces))
 
     if anterior != len(faces):
         anterior = len(faces)
