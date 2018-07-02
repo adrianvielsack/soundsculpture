@@ -4,9 +4,9 @@ import logging as log
 import datetime as dt
 from time import sleep
 
-cascPath = "haarcascade_frontalface_default.xml"
+cascPath = "haar_cascades/haarcascade_frontalface_default.xml"
 faceCascade = cv2.CascadeClassifier(cascPath)
-log.basicConfig(filename='webcam.log',level=log.INFO)
+#log.basicConfig(filename='webcam.log',level=log.INFO)
 
 video_capture = cv2.VideoCapture(0)
 anterior = 0
@@ -35,7 +35,7 @@ while True:
 
     if anterior != len(faces):
         anterior = len(faces)
-        log.info("faces: "+str(len(faces))+" at "+str(dt.datetime.now()))
+        #log.info("faces: "+str(len(faces))+" at "+str(dt.datetime.now()))
 
 
     # Display the resulting frame
